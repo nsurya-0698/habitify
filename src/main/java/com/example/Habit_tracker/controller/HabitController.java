@@ -1,8 +1,8 @@
 package com.example.Habit_tracker.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,38 +16,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.Habit_tracker.model.Habit;
 import com.example.Habit_tracker.service.HabitService;
 
-@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("/api/habits")
+@CrossOrigin(origins = "http://localhost:5173")
 public class HabitController {
-	@Autowired
-    private HabitService habitService;
 
-    // Get all habits
+    private final HabitService habitService;
+
+    public HabitController(HabitService habitService) {
+        this.habitService = habitService;
+    }
+
     @GetMapping
     public List<Habit> getAllHabits() {
         return habitService.getAllHabits();
     }
 
-    // Get a specific habit by ID
-    @GetMapping("/{id}")
-    public Habit getHabitById(@PathVariable Long id) {
-        return habitService.getHabitById(id);
+    // Get habits by a specific date
+    @GetMapping("/date/{date}")
+    public List<Habit> getHabitsByDate(@PathVariable String date) {
+        LocalDate parsedDate = LocalDate.parse(date);
+        return habitService.getHabitsByDate(parsedDate);
     }
 
-    // Create a new habit
     @PostMapping
     public Habit createHabit(@RequestBody Habit habit) {
         return habitService.createHabit(habit);
     }
 
-    // Update an existing habit
     @PutMapping("/{id}")
     public Habit updateHabit(@PathVariable Long id, @RequestBody Habit habit) {
         return habitService.updateHabit(id, habit);
     }
 
-    // Delete a habit by ID
     @DeleteMapping("/{id}")
     public void deleteHabit(@PathVariable Long id) {
         habitService.deleteHabit(id);

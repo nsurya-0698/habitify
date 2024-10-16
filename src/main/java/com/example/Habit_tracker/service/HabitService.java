@@ -1,5 +1,6 @@
 package com.example.Habit_tracker.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.Habit_tracker.model.Habit;
@@ -11,4 +12,5 @@ public interface HabitService {
     Habit createHabit(Habit habit);
     Habit updateHabit(Long id, Habit habit);
     void deleteHabit(Long id);
+	List<Habit> getHabitsByDate(LocalDate parsedDate);
 }

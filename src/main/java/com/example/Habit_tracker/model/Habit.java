@@ -9,17 +9,17 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Habit {
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String description;
-    private LocalDate startDate;
-    private Boolean completed;
+    private LocalDate date;
+    private boolean completed;
     private String remarks;
 
-    // Getters and Setters
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -44,19 +44,19 @@ public class Habit {
         this.description = description;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public Boolean getCompleted() {
+    public boolean isCompleted() {
         return completed;
     }
 
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
